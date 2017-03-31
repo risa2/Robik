@@ -38,6 +38,7 @@
 		<Unit filename="headers/bank.h" />
 		<Unit filename="headers/end.h" />
 		<Unit filename="headers/fighters.h" />
+		<Unit filename="headers/fighters/abstract/all.h" />
 		<Unit filename="headers/fighters/abstract/fighter.h" />
 		<Unit filename="headers/fighters/abstract/person.h" />
 		<Unit filename="headers/fighters/abstract/statechanging/attackingfighter.h" />

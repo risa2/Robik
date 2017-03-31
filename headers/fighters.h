@@ -1,16 +1,6 @@
 #pragma once
 
-#include "fighters/abstract/fighter.h"
-#include "fighters/abstract/statehaving/destructiblefighter.h"
-#include "fighters/abstract/statehaving/stoppablefighter.h"
-#include "fighters/abstract/statehaving/nonneutralfigher.h"
-#include "fighters/abstract/statehaving/locatedfighter.h"
-#include "fighters/abstract/statehaving/visualfighter.h"
-#include "fighters/abstract/statechanging/attackingfighter.h"
-#include "fighters/abstract/statechanging/healingfighter.h"
-#include "fighters/abstract/statechanging/reversingfighter.h"
-#include "fighters/abstract/statechanging/deceleratingfighter.h"
-#include "fighters/abstract/person.h"
+#include "fighters/abstract/all.h"
 #include "fighters/rangefighter.h"
 #include "fighters/swordfighter.h"
 #include "fighters/reverser.h"
