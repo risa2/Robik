@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Robik" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Robik" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="include" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Robik" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="headers/arena.h" />
+		<Unit filename="headers/bank.h" />
+		<Unit filename="headers/end.h" />
+		<Unit filename="headers/fighters.h" />
+		<Unit filename="headers/fighters/abstract/fighter.h" />
+		<Unit filename="headers/fighters/abstract/person.h" />
+		<Unit filename="headers/fighters/abstract/statechanging/attackingfighter.h" />
+		<Unit filename="headers/fighters/abstract/statechanging/deceleratingfighter.h" />
+		<Unit filename="headers/fighters/abstract/statechanging/healingfighter.h" />
+		<Unit filename="headers/fighters/abstract/statechanging/reversingfighter.h" />
+		<Unit filename="headers/fighters/abstract/statehaving/destructiblefighter.h" />
+		<Unit filename="headers/fighters/abstract/statehaving/locatedfighter.h" />
+		<Unit filename="headers/fighters/abstract/statehaving/nonneutralfigher.h" />
+		<Unit filename="headers/fighters/abstract/statehaving/stoppablefighter.h" />
+		<Unit filename="headers/fighters/abstract/statehaving/visualfighter.h" />
+		<Unit filename="headers/fighters/archer.h" />
+		<Unit filename="headers/fighters/cart.h" />
+		<Unit filename="headers/fighters/decelerator.h" />
+		<Unit filename="headers/fighters/gate.h" />
+		<Unit filename="headers/fighters/healer.h" />
+		<Unit filename="headers/fighters/rangefighter.h" />
+		<Unit filename="headers/fighters/reverser.h" />
+		<Unit filename="headers/fighters/robik.h" />
+		<Unit filename="headers/fighters/runner.h" />
+		<Unit filename="headers/fighters/shoot.h" />
+		<Unit filename="headers/fighters/swordfighter.h" />
+		<Unit filename="headers/graphicoutput.h" />
+		<Unit filename="headers/interval.h" />
+		<Unit filename="headers/level.h" />
+		<Unit filename="headers/music.h" />
+		<Unit filename="headers/progress.h" />
+		<Unit filename="headers/progressofkilling.h" />
+		<Unit filename="headers/shopwithsoliders.h" />
+		<Unit filename="headers/sound.h" />
+		<Unit filename="headers/speedstate.h" />
+		<Unit filename="headers/zombiecreator.h" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
