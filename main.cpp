@@ -61,7 +61,7 @@ int main()try
 	};
 	constexpr uint32 zombie_start=Fighter::lenght-Fighter::size.w;
 	FighterList fighters={
-		make_unique<SwordFighter>(images[3], 0, 10, true, 100, 10, 2, 0, false),
+		make_unique<SwordFighter>(images[3], 0, 10, true, 100, 10, 1, 0, false),
 		make_unique<Decelerator>(images[4], 0, 2, true, 100, 20, SpeedState(SpeedState::Enum::Sleeping, 5), false),
 		make_unique<Archer>(images[5], 0, 1, true, 100, 10, 150, false, make_unique<Shoot>(images[2], 0, 10, true)),
 		make_unique<Healer>(images[6], 0, 1, true, 100, 50, 40, 80, false),
