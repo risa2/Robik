@@ -6,7 +6,6 @@ protected:
 	bool lastaction=false;
 	bool DecelerateIfPossible()
 	{
-		lastaction=true;
 		return FindEnemies<StoppableFighter>([&](StoppableFighter& f){Decelerate(f);}, true);
 	}
 public:
@@ -25,6 +24,7 @@ public:
 	{
 		if(DecelerateIfPossible())
 		{
+			lastaction=true;
 			GoBackwards();
 		}
 		else

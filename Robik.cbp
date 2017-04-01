@@ -62,6 +62,7 @@
 		<Unit filename="headers/fighters/shoot.h" />
 		<Unit filename="headers/fighters/swordfighter.h" />
 		<Unit filename="headers/graphicoutput.h" />
+		<Unit filename="headers/imagelist.h" />
 		<Unit filename="headers/interval.h" />
 		<Unit filename="headers/level.h" />
 		<Unit filename="headers/music.h" />
