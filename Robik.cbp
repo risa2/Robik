@@ -9,7 +9,7 @@
 			<Target title="Debug">
 				<Option output="bin/Debug/Robik" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
-				<Option type="0" />
+				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
@@ -62,7 +62,6 @@
 		<Unit filename="headers/fighters/shoot.h" />
 		<Unit filename="headers/fighters/swordfighter.h" />
 		<Unit filename="headers/graphicoutput.h" />
-		<Unit filename="headers/imagelist.h" />
 		<Unit filename="headers/interval.h" />
 		<Unit filename="headers/level.h" />
 		<Unit filename="headers/music.h" />

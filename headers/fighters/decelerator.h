@@ -6,7 +6,7 @@ protected:
 	bool lastaction=false;
 	bool DecelerateIfPossible()
 	{
-		return FindEnemies<StoppableFighter>([&](StoppableFighter& f){Decelerate(f);}, true);
+		return FindEnemies<StoppableFighter>([&](StoppableFighter& f){Decelerate(f);}, false);
 	}
 public:
 	Decelerator(SDL::Texture& img, uint32 pos, uint32 speed, bool good, uint32 health, uint32 range, SpeedState state, bool flying)
@@ -25,7 +25,7 @@ public:
 		if(DecelerateIfPossible())
 		{
 			lastaction=true;
-			GoBackwards();
+			//GoBackwards();
 		}
 		else
 		{

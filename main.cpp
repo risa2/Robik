@@ -2,6 +2,7 @@
 #include <fstream>
 #include <memory>
 
+#include "print.h"
 #include "dynarr.h"
 #include "objsdl.h"
 #include "nocopy.h"
@@ -61,12 +62,12 @@ int main()try
 	};
 	constexpr uint32 zombie_start=Fighter::lenght-Fighter::size.w;
 	FighterList fighters={
-		make_unique<SwordFighter>(images[3], 0, 10, true, 100, 10, 1, 0, false),
+		make_unique<SwordFighter>(images[3], 0, 10, true, 100, 10, 1, 0, false),//Pes
 		make_unique<Decelerator>(images[4], 0, 2, true, 100, 20, SpeedState(SpeedState::Enum::Sleeping, 5), false),
 		make_unique<Archer>(images[5], 0, 1, true, 100, 10, 150, false, make_unique<Shoot>(images[2], 0, 10, true)),
-		make_unique<Healer>(images[6], 0, 1, true, 100, 50, 40, 80, false),
-		make_unique<SwordFighter>(images[7], 0, 1, true, 200, 50, 4, 50, false),
-		make_unique<SwordFighter>(images[8], 0, 1, true, 2000, 20, 1, 0, false),
+		make_unique<Healer>(images[6], 0, 1, true, 100, 50, 40, 80, false),//Lekar
+		make_unique<SwordFighter>(images[7], 0, 1, true, 200, 50, 4, 50, false),//Risa
+		make_unique<SwordFighter>(images[8], 0, 1, true, 2000, 20, 1, 0, false),//Rytir
 		make_unique<Reverser>(images[9], 0, 1, true, 100, 100, 100, false),
 		make_unique<Cart>(images[10], 0, 10, true, 500, 200),
 
@@ -90,7 +91,7 @@ int main()try
 		{5, 2100},
 		{6, 1400},
 		{7, 1400}});
-	ZombieCreator zombies(fighters, level, progress);
+	ZombieCreator zombies(fighters, level, progress.GetLoops());
 	ProgressOfZombieKilling killed(zombies);
 	while(SDL::Event::NotQuit())
 	{

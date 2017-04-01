@@ -10,7 +10,7 @@ public:
 		uint32 modus;
 		size_t index;
 	public:
-		Rule(uint32 divisor=1, uint32 modus=1, size_t index=0)
+		Rule(uint32 divisor=1, uint32 modus=0, size_t index=0)
 			:divisor(divisor), modus(modus), index(index) {}
 		bool IsTrue(uint32 value)const
 		{
@@ -26,7 +26,8 @@ public:
 		}
 		friend istream& operator>>(istream& in, Rule& rule)
 		{
-			return in>>rule.divisor>>rule.modus>>rule.index;
+			in>>rule.divisor>>rule.modus>>rule.index;
+			return in;
 		}
 	};
 private:
@@ -61,11 +62,11 @@ public:
 	Level(istream&& in)
 	{
 		in>>loops>>sleeptime;
-		while(in&&in.peek()!='|')
+		while(in)
 		{
 			rules.resize(rules.size()+1);
 			in>>rules.back();
 		}
-		in.ignore(1);
+		rules.pop_back();
 	}
 };
