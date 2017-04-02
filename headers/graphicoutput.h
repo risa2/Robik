@@ -5,15 +5,18 @@ class GraphicOutput
 private:
 	SDL::Renderer rend;
 public:
-	constexpr static int killedPos=0, killedHeight=30, alliesPos=killedPos+killedHeight,
-			alliesHeight=Fighter::size.h+30, arenaPos=alliesPos+alliesHeight,
-			arenaHeight=Fighter::size.h, height=arenaPos+arenaHeight;
+	constexpr static int width=Fighter::lenght, killedPos=0, killedHeight=30,
+		bankPos=killedPos+killedHeight, bankHeight=30,
+		alliesPos=bankPos+bankHeight, alliesHeight=Fighter::size.y,
+		arenaPos=alliesPos+alliesHeight, arenaHeight=Fighter::size.y,
+		height=arenaPos+arenaHeight;
 	GraphicOutput(SDL::Window& screen):rend(screen){}
-	void Show(ProgressOfZombieKilling& killed, ShopWithSoliders& allies, Arena& arena)
+	void Show(KillingProgress& killed, Bank& bank, ShopWithSoliders& allies, Arena& arena)
 	{
 		rend.Repaint(SDL::Color(255,255,160));
-		killed.DrawOn(rend, SDL::Rect(0, killedPos, Fighter::lenght, killedHeight));
-		allies.DrawOn(rend, SDL::Rect(0, alliesPos, Fighter::lenght, 30), 350);
+		killed.DrawOn(rend, SDL::Rect(0, killedPos, width, killedHeight));
+		bank.DrawOn(rend, SDL::Rect(0, bankPos, Fighter::lenght, bankHeight), 350);
+		allies.DrawOn(rend, SDL::Point(0, alliesPos));
 		arena.DrawOn(rend, SDL::Point(0, arenaPos));
 		rend.Show();
 	}

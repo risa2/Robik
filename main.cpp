@@ -60,7 +60,7 @@ int main()try
 		SDL::Texture::LoadImg("img\\zombiebird.png", out),
 		SDL::Texture::LoadImg("img\\businesszombie.png", out)
 	};
-	constexpr uint32 zombie_start=Fighter::lenght-Fighter::size.w;
+	constexpr uint32 zombie_start=Fighter::lenght-Fighter::size.x;
 	FighterList fighters={
 		make_unique<SwordFighter>(images[3], 0, 10, true, 100, 10, 1, 0, false),//Pes
 		make_unique<Decelerator>(images[4], 0, 2, true, 100, 20, SpeedState(SpeedState::Enum::Sleeping, 5), false),
@@ -82,7 +82,8 @@ int main()try
 	};
 	Fighter::arena.AddFighter(make_unique<Robik>(images[0], 0, 5, 1000, 20, 1, 0, make_unique<Shoot>(images[2], 0, 10, true), 20, 200, GraphicOutput::arenaPos));
 	Fighter::arena.AddFighter(make_unique<Gate>(images[1], 1000, 0, true));
-	ShopWithSoliders shop(Bank(7000,0), images, fighters, {
+	Bank bank(7000, 0);
+	ShopWithSoliders shop(bank, images, fighters, {
 		{0,  350},
 		{1,  350},
 		{2,  700},
@@ -92,14 +93,14 @@ int main()try
 		{6, 1400},
 		{7, 1400}});
 	ZombieCreator zombies(fighters, level, progress.GetLoops());
-	ProgressOfZombieKilling killed(zombies);
+	KillingProgress killed(zombies);
 	while(SDL::Event::NotQuit())
 	{
-		out.Show(killed, shop, Fighter::arena);
-		if(End(Fighter::arena.GetState(), progress.End()))
+		out.Show(killed, bank, shop, Fighter::arena);
+		if(End(Fighter::arena, killed.YouWin()))
 		{
 			music.Stop();
-			Message(Fighter::arena.GetState());
+			Message(Fighter::arena);
 			break;
 		}
 		if(!progress.End())
@@ -107,17 +108,16 @@ int main()try
 			Fighter::arena.AddFighters(zombies.AllNew(progress));
 		}
 		uint32 newkilled=Fighter::arena.Clean();
+		killed.IncreaseKilled(newkilled);
 		shop.AddMoney(1+newkilled);
 		if(newkilled!=0)
 		{
 			killedZombieSound.Play();
 		}
-		killed.IncreaseKilled(newkilled);
 		Fighter::arena.Actions();
 		shop.Purchase(Fighter::arena, SDL::Point(0, GraphicOutput::alliesPos+30));
 		progress.Next();
 	}
-	music.Stop();
 	return 0;
 }
 catch(SDL::Error& err)

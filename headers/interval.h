@@ -24,5 +24,5 @@ public:
 	{
 		return left==interval;
 	}
-	Interval(uint32 interval):interval(interval), left(interval){}
+	Interval(uint32 interval):interval(interval), left(interval-1){}
 };

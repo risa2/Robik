@@ -1,16 +1,16 @@
 #pragma once
 
-bool End(Survive who, bool lastzombies)
+bool End(Arena& arena, bool win)
 {
-	return lastzombies&&who!=Survive::Both;
+	return win||arena.DeadRobik(0)||arena.DeadGate(1);
 }
-void Message(Survive gamestate)
+void Message(Arena& arena)
 {
-	if(gamestate==Survive::Zombies)
+	if(arena.DeadRobik(0)||arena.DeadGate(1))
 	{
 		SDL::MessageBox::Show("Konec hry", "Prohra!");
 	}
-	if(gamestate==Survive::Robik)
+	else
 	{
 		SDL::MessageBox::Show("Konec hry", "Výhra!");
 	}

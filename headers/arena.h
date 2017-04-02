@@ -4,14 +4,10 @@
 
 class Fighter;
 
-enum class Survive: uint8
-{
-	Robik, Zombies, Both
-};
 class Arena
 {
 private:
-	using Array=containers::DynArr<unique_ptr<Fighter>>;
+	using Array=DynArr<unique_ptr<Fighter>>;
 	Array fighters;
 	bool active=true;
 public:
@@ -30,7 +26,8 @@ public:
 	uint32 Clean();
 	void DrawOn(SDL::Renderer& draw, SDL::Point pos);
 	void Actions();
-	Survive GetState();
+	inline bool DeadRobik(size_t index);
+	inline bool DeadGate(size_t index);
 	size_t size()const noexcept
 	{
 		return fighters.size();
@@ -88,30 +85,11 @@ void Arena::DrawOn(SDL::Renderer& draw, SDL::Point pos)
 		fighters[i]->DrawOn(draw, pos);
 	}
 }
-Survive Arena::GetState()
+inline bool Arena::DeadRobik(size_t index)
 {
-	struct
-	{
-		uint8 robik:1, zombies:1, gate:1;
-	} isAlive= {0,0,0};
-	for(auto& creature:fighters)
-	{
-		if(typeid(*creature)==typeid(Robik))
-		{
-			isAlive.robik=1;
-		}
-		else if(typeid(*creature)==typeid(Gate))
-		{
-			isAlive.gate=1;
-		}
-		else if(!creature->IsGood()&&dynamic_cast<DestructibleFighter*>(creature.get()))
-		{
-			isAlive.zombies=1;
-		}
-	}
-	return isAlive.robik&&isAlive.gate?
-				(isAlive.zombies?
-					Survive::Both:
-					Survive::Robik):
-				Survive::Zombies;
+	return !dynamic_cast<Robik*>(fighters[index].get());
+}
+inline bool Arena::DeadGate(size_t index)
+{
+	return !dynamic_cast<Gate*>(fighters[index].get());
 }

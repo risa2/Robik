@@ -26,7 +26,7 @@ public:
 	{
         if(end)
 		{
-			rend.Draw(SDL::Rect(dst_pos.x+pos, dst_pos.y, range, size.h), SDL::Color(255,128,0));
+			rend.Draw(SDL::Rect(dst_pos.x+pos, dst_pos.y, range, size.y), SDL::Color(255,128,0));
 		}
 		else
 		{

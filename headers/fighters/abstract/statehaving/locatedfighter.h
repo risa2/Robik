@@ -24,9 +24,9 @@ public:
 	}
 	bool GoRight()
 	{
-		if(pos!=Fighter::lenght-Fighter::size.w)
+		if(pos!=Fighter::lenght-Fighter::size.x)
 		{
-			pos=(pos+speed>=Fighter::lenght-Fighter::size.w)?Fighter::lenght-Fighter::size.w:pos+speed;
+			pos=(pos+speed>=Fighter::lenght-Fighter::size.x)?Fighter::lenght-Fighter::size.x:pos+speed;
 			return true;
 		}
 		else

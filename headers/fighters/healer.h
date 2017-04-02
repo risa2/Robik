@@ -7,11 +7,11 @@ protected:
 	{
 		if(IsGood())
 		{
-			return GetPos()<=creature.GetPos()+size.w&&GetPos()+size.w+range>=creature.GetPos();
+			return GetPos()<=creature.GetPos()+size.x&&GetPos()+size.x+range>=creature.GetPos();
 		}
 		else
 		{
-			return GetPos()>=creature.GetPos()-size.w&&GetPos()-size.w-range<=creature.GetPos();
+			return GetPos()>=creature.GetPos()-size.x&&GetPos()-size.x-range<=creature.GetPos();
 		}
 	}
 	DestructibleFighter* CanHeal(Arena& arena)
