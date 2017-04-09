@@ -25,7 +25,6 @@ public:
 		if(DecelerateIfPossible())
 		{
 			lastaction=true;
-			//GoBackwards();
 		}
 		else
 		{
