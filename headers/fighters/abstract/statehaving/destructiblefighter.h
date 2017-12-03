@@ -10,17 +10,10 @@ protected:
 public:
 	virtual void BeAttacked(Fighter& attacker, uint32 damage)noexcept
 	{
-		if(flying)
+		if(auto d=dynamic_cast<DestructibleFighter*>(&attacker); !flying||!d||d->IsFlying())
 		{
-			if(auto d=dynamic_cast<DestructibleFighter*>(&attacker))
-			{
-				if(!d->IsFlying())
-				{
-					return;
-				}
-			}
+			health=(health<=damage)?0:health-damage;
 		}
-		health=(health<=damage)?0:health-damage;
 	}
 	virtual void BeHealed(Fighter&, uint32 power)noexcept
 	{

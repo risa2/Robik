@@ -4,7 +4,7 @@ class Bank
 {
 private:
 	uint32 money;
-	uint32 capacity;
+	const uint32 capacity;
 public:
 	Bank(uint32 cap, uint32 startmoney=0):money(startmoney), capacity(cap){}
 	void AddMoney(uint32 money)
@@ -25,8 +25,8 @@ public:
 	}
 	void DrawOn(SDL::Renderer& rend, const SDL::Rect& dst, uint16 section, SDL::Color col=SDL::Color::Yellow())
 	{
+		rend.Draw(dst, SDL::Color(0,0,0,0));
 		rend.Draw(SDL::Rect(dst.Position(), dst.w*money/capacity, dst.h), col);
-		rend.Draw(SDL::Rect(dst.Position()+SDL::Point(dst.w*money/capacity,0), dst.w-dst.w*money/capacity, dst.h), SDL::Color(0,0,0,0));
         rend.DrawBorder(dst, SDL::Color::White());
         for(size_t i=section;i<capacity;i+=section)
 		{

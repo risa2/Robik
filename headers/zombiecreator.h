@@ -9,9 +9,9 @@ private:
 public:
 	ZombieCreator(FighterList& fighters, const Level& level, uint32 loops)
 		:level(level), fighters(fighters), zombiecount(level.TotalZombies(loops)){}
-	DynArr<unique_ptr<Fighter>> AllNew(uint32 loop)
+	vector<unique_ptr<Fighter>> AllNew(uint32 loop)
 	{
-		DynArr<unique_ptr<Fighter>> created;
+		vector<unique_ptr<Fighter>> created;
 		for(auto& index:level.AllNew(loop))
 		{
             created.push_back(fighters[index]->Clone());

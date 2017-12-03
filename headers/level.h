@@ -31,16 +31,16 @@ public:
 		}
 	};
 private:
-	DynArr<Rule> rules;
+	vector<Rule> rules;
 	uint32 loops, sleeptime;
 public:
 	Progress GetProgressObject()const
 	{
 		return Progress(loops, sleeptime);
 	}
-	DynArr<size_t> AllNew(uint32 value)const
+	vector<size_t> AllNew(uint32 value)const
 	{
-		DynArr<size_t> result;
+		vector<size_t> result;
 		for(auto& rule:rules)
 		{
 			if(rule.IsTrue(value))

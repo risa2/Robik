@@ -7,7 +7,7 @@ private:
 	Bank& bank;
 	ImageList& images;
 	FighterList& fighters;
-	DynArr<Ally> allies;
+	vector<Ally> allies;
 	bool BuyAlly(Arena& arena, Ally& ally)
 	{
 		if(bank.Pay(ally.second))
@@ -18,7 +18,7 @@ private:
 		return false;
 	}
 public:
-	ShopWithSoliders(Bank& bank, ImageList& images, FighterList& fighters, const DynArr<Ally>& allies)
+	ShopWithSoliders(Bank& bank, ImageList& images, FighterList& fighters, const vector<Ally>& allies)
 		:bank(bank), images(images), fighters(fighters), allies(func::Move(allies)){}
 	void Purchase(Arena& arena, SDL::Point pos)
 	{
@@ -49,7 +49,7 @@ public:
 		SDL::Rect rect(dst, Fighter::size);
 		for(size_t i=0;i<allies.size();++i)
 		{
-			rend.Draw(fighters[allies[i].first]->GetImage(), nullptr, &rect);
+			rend.Draw(fighters[allies[i].first]->GetImage(), nullptr, rect);
 			rect.x+=rect.w;
 		}
 		rend.Draw(SDL::Line(SDL::Point(0, dst.y+Fighter::size.y-1), SDL::Point(Fighter::lenght, dst.y+Fighter::size.y-1)), SDL::Color::Black());

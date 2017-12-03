@@ -13,12 +13,9 @@ public:
         GoForward();
         for(size_t i=0;i<arena.size();++i)
 		{
-			if(auto d=dynamic_cast<DestructibleFighter*>(arena[i]))
+			if(auto d=dynamic_cast<DestructibleFighter*>(arena[i]); d&&d->IsGood()!=IsGood()&&Touch(*d))
 			{
-				if(d->IsGood()!=IsGood()&&Touch(*d))
-				{
-					end=true;
-				}
+				end=true;
 			}
 		}
 	}
@@ -42,12 +39,9 @@ public:
 		RangeFighter::range=range;
 		for(size_t i=0;i<arena.size();++i)
 		{
-			if(auto d=dynamic_cast<DestructibleFighter*>(arena[i]))
+			if(auto d=dynamic_cast<DestructibleFighter*>(arena[i]); d&&d->IsGood()!=IsGood()&&Touch(*d))
 			{
-				if(d->IsGood()!=IsGood()&&Touch(*d))
-				{
-					Attack(*d);
-				}
+				Attack(*d);
 			}
 		}
 	}

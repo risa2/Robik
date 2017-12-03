@@ -20,16 +20,13 @@ protected:
 		bool action=false;
 		for(size_t i=0;i<arena.size();++i)
 		{
-			if(auto o=dynamic_cast<T*>(arena[i]))
+			if(auto o=dynamic_cast<T*>(arena[i]); o&&o->IsGood()!=IsGood()&&Touch(*o))
 			{
-				if(o->IsGood()!=IsGood()&&Touch(*o))
+				callback(*o);
+				action=true;
+				if(one)
 				{
-					callback(*o);
-					action=true;
-					if(one)
-					{
-						break;
-					}
+					break;
 				}
 			}
 		}
@@ -41,7 +38,8 @@ protected:
 		return FindEnemies<T>([](T&){}, true);
 	}
 public:
-	RangeFighter(uint32 range):range(range){}
+	RangeFighter(uint32 range)
+		:range(range){}
 	virtual void DrawOn(SDL::Renderer& rend, SDL::Point dst_pos)override
 	{
         rend.Draw(SDL::Rect(GetPos()+(IsGood()?dst_pos.x+size.x:dst_pos.x-range), dst_pos.y+size.y/2-1, range, 2), SDL::Color::Blue());

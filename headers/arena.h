@@ -7,7 +7,7 @@ class Fighter;
 class Arena
 {
 private:
-	using Array=DynArr<unique_ptr<Fighter>>;
+	using Array=vector<unique_ptr<Fighter>>;
 	Array fighters;
 	bool active=true;
 public:
@@ -49,11 +49,11 @@ uint32 Arena::Clean()
 	{
 		if(!fighters[i]->IsAlive())
 		{
-			if(!fighters[i]->IsGood()&&dynamic_cast<DestructibleFighter*>(fighters[i].get())&&!fighters[i]->IsReversed())
+			if(auto d=dynamic_cast<DestructibleFighter*>(fighters[i].get()); d&&!fighters[i]->IsGood()&&!fighters[i]->IsReversed())
 			{
 				++money;
 			}
-			fighters.erase(i);
+			fighters.erase(fighters.begin()+i);
 			--i;
 		}
 	}

@@ -15,7 +15,7 @@ public:
 	{
 		rend.Repaint(SDL::Color(255,255,160));
 		killed.DrawOn(rend, SDL::Rect(0, killedPos, width, killedHeight));
-		bank.DrawOn(rend, SDL::Rect(0, bankPos, Fighter::lenght, bankHeight), 350);
+		bank.DrawOn(rend, SDL::Rect(0, bankPos, Fighter::lenght, bankHeight), 500);
 		allies.DrawOn(rend, SDL::Point(0, alliesPos));
 		arena.DrawOn(rend, SDL::Point(0, arenaPos));
 		rend.Show();
@@ -25,5 +25,3 @@ public:
 		return rend;
 	}
 };
-constexpr int GraphicOutput::killedPos, GraphicOutput::killedHeight, GraphicOutput::alliesPos,
-		GraphicOutput::alliesHeight, GraphicOutput::arenaPos, GraphicOutput::arenaHeight, GraphicOutput::height;

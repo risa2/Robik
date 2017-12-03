@@ -1,21 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <memory>
+#include <array>
 
-#include "print.h"
-#include "dynarr.h"
 #include "objsdl.h"
-#include "nocopy.h"
 
 using namespace std;
-using containers::DynArr;
 
 #include "headers/bank.h"
 #include "headers/progress.h"
 #include "headers/arena.h"
 
-using ImageList=DynArr<SDL::Texture>;
-using FighterList=DynArr<unique_ptr<Fighter>>;
+using ImageList=array<SDL::Texture, 20>;
+using FighterList=array<unique_ptr<Fighter>, 16>;
 
 #include "headers/level.h"
 #include "headers/zombiecreator.h"
@@ -36,7 +33,7 @@ int main()try
 	Level level(ifstream("levels"));
 	Progress progress=level.GetProgressObject();
 
-	SDL::Window screen("Robík vs Zombíci", SDL::Window::UndefinedPos, 30, Fighter::lenght, GraphicOutput::height);
+	SDL::Window screen("Robík vs Zombíci", SDL::Window::UndefinedPos, SDL::Point(Fighter::lenght, GraphicOutput::height));
 	GraphicOutput out(screen);
 
 	ImageList images={
@@ -58,7 +55,8 @@ int main()try
 		SDL::Texture::LoadImg("img\\obr.png", out),
 		SDL::Texture::LoadImg("img\\runner.png", out),
 		SDL::Texture::LoadImg("img\\zombiebird.png", out),
-		SDL::Texture::LoadImg("img\\businesszombie.png", out)
+		SDL::Texture::LoadImg("img\\businesszombie.png", out),
+		SDL::Texture::LoadImg("img\\zombieshoot.png", out)
 	};
 	constexpr uint32 zombie_start=Fighter::lenght-Fighter::size.x;
 	FighterList fighters={
@@ -71,7 +69,7 @@ int main()try
 		make_unique<Reverser>(images[9], 0, 1, true, 100, 100, 100, false),
 		make_unique<Cart>(images[10], 0, 10, true, 500, 200),
 
-		make_unique<Archer>(images[11], zombie_start, 1, false, 100, 20, 150, false, make_unique<Shoot>(images[2], 0, 10, false)),
+		make_unique<Archer>(images[11], zombie_start, 1, false, 100, 20, 150, false, make_unique<Shoot>(images[19], 0, 10, false)),
 		make_unique<Healer>(images[12], zombie_start, 1, false, 100, 50, 40, 80, false),
 		make_unique<Decelerator>(images[13], zombie_start, 1, false, 150, 20, SpeedState(SpeedState::Enum::Slow, 100), false),
 		make_unique<SwordFighter>(images[14], zombie_start, 2, false, 100, 10, 1, 0, false),
@@ -82,16 +80,16 @@ int main()try
 	};
 	Fighter::arena.AddFighter(make_unique<Robik>(images[0], 0, 5, 1000, 20, 1, 0, make_unique<Shoot>(images[2], 0, 10, true), 20, 200, GraphicOutput::arenaPos));
 	Fighter::arena.AddFighter(make_unique<Gate>(images[1], 1000, 0, true));
-	Bank bank(7000, 0);
+	Bank bank(10000, 0);
 	ShopWithSoliders shop(bank, images, fighters, {
-		{0,  350},
-		{1,  350},
-		{2,  700},
-		{3, 1050},
-		{4, 1400},
-		{5, 2100},
-		{6, 1400},
-		{7, 1400}});
+		{0,  500},
+		{1,  500},
+		{2, 1000},
+		{3, 1500},
+		{4, 2000},
+		{5, 3000},
+		{6, 2000},
+		{7, 2000}});
 	ZombieCreator zombies(fighters, level, progress.GetLoops());
 	KillingProgress killed(zombies);
 	while(SDL::Event::NotQuit())

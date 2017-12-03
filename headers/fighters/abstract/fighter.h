@@ -20,4 +20,3 @@ public:
 	virtual void DrawOn(SDL::Renderer& rend, SDL::Point dst_pos){}
 	virtual SDL::Texture& GetImage()const noexcept=0;
 };
-constexpr SDL::Point Fighter::size;

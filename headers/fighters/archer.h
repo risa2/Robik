@@ -28,8 +28,10 @@ protected:
 	Interval interval;
 	unique_ptr<Shoot> shoot;
 public:
-	Shooter(uint32 interval, uint32 range, unique_ptr<Shoot> shoot):RangeFighter(range), interval(interval), shoot(func::Move(shoot)){}
-	Shooter(const Shooter& second):RangeFighter(range), interval(second.interval), shoot(dynamic_cast<Shoot*>(second.shoot->Clone().release())){}
+	Shooter(uint32 interval, uint32 range, unique_ptr<Shoot> shoot)
+		:RangeFighter(range), interval(interval), shoot(func::Move(shoot)){}
+	Shooter(const Shooter& second)
+		:RangeFighter(second.range), interval(second.interval), shoot(dynamic_cast<Shoot*>(second.shoot->Clone().release())){}
 	virtual void Action()override
 	{
 		AttackIfPossible();
@@ -39,11 +41,10 @@ class Archer: public Shooter, public Person
 {
 public:
 	Archer(SDL::Texture& img, uint32 pos, uint32 speed, bool good, uint32 health, uint32 interval, uint32 range, bool flying, unique_ptr<Shoot> shoot)
-			:Shooter(interval, range, func::Move(shoot)), Person(img, pos, speed, good, health, flying){}
+		:Shooter(interval, range, func::Move(shoot)), Person(img, pos, speed, good, health, flying){}
 	virtual void DrawOn(SDL::Renderer& rend, SDL::Point dst_pos)override
 	{
 		Person::DrawOn(rend, dst_pos);
-		RangeFighter::DrawOn(rend, dst_pos);
 	}
 	virtual void Action()override
 	{

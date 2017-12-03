@@ -18,12 +18,9 @@ protected:
 	{
 		for(size_t i=0;i<arena.size();++i)
 		{
-			if(auto d=dynamic_cast<DestructibleFighter*>(arena[i]))
+			if(auto d=dynamic_cast<DestructibleFighter*>(arena[i]); d&&d->IsGood()==IsGood()&&Touch(*d)&&!d->IsHealthy())
 			{
-				if(d->IsGood()==IsGood()&&Touch(*d)&&!d->IsHealthy())
-				{
-					return d;
-				}
+				return d;
 			}
 		}
 		return nullptr;
