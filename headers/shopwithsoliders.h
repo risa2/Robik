@@ -49,9 +49,9 @@ public:
 		SDL::Rect rect(dst, Fighter::size);
 		for(size_t i=0;i<allies.size();++i)
 		{
-			rend.Draw(fighters[allies[i].first]->GetImage(), nullptr, rect);
+			rend.Draw(fighters[allies[i].first]->GetImage(), fighters[allies[i].first]->GetImage().Size(), rect);
 			rect.x+=rect.w;
 		}
-		rend.Draw(SDL::Line(SDL::Point(0, dst.y+Fighter::size.y-1), SDL::Point(Fighter::lenght, dst.y+Fighter::size.y-1)), SDL::Color::Black());
+		rend.Draw(SDL::Line(SDL::Point(0, dst.y+Fighter::size.y-1), SDL::Point(Fighter::lenght, dst.y+Fighter::size.y-1)), SDL::Color(0,0,0));
 	}
 };

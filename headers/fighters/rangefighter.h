@@ -42,6 +42,6 @@ public:
 		:range(range){}
 	virtual void DrawOn(SDL::Renderer& rend, SDL::Point dst_pos)override
 	{
-        rend.Draw(SDL::Rect(GetPos()+(IsGood()?dst_pos.x+size.x:dst_pos.x-range), dst_pos.y+size.y/2-1, range, 2), SDL::Color::Blue());
+        rend.Draw(SDL::Rect(GetPos()+(IsGood()?dst_pos.x+size.x:dst_pos.x-range), dst_pos.y+size.y/2-1, range, 2), SDL::Color(0,0,255));
 	}
 };

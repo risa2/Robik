@@ -3,7 +3,7 @@
 #include <memory>
 #include <array>
 
-#include "objsdl.h"
+#include "objsdl/objsdl.h"
 
 using namespace std;
 
@@ -25,44 +25,48 @@ using FighterList=array<unique_ptr<Fighter>, 16>;
 
 Arena Fighter::arena;
 
-int main()try
+int main(int argc, char** argv)try
 {
-	SDL::Init();
+	if(argc<2)
+	{
+		return 0;
+	}
+	SDL::Init _i;
 	Music music("sound\\music.wav");
 	Sound killedZombieSound("sound\\killedzombie.wav");
-	Level level(ifstream("levels"));
+	Level level{ifstream(argv[1])};
 	Progress progress=level.GetProgressObject();
 
-	SDL::Window screen("Robík vs Zombíci", SDL::Window::UndefinedPos, SDL::Point(Fighter::lenght, GraphicOutput::height));
+	SDL::Window screen("Robík vs Zombíci", SDL::Rect(40, 40, Fighter::lenght, GraphicOutput::height));
 	GraphicOutput out(screen);
 
 	ImageList images={
-		SDL::Texture::LoadImg("img\\robik.png", out),
-		SDL::Texture::LoadImg("img\\gate.png", out),
-		SDL::Texture::LoadImg("img\\shoot.png", out),
-		SDL::Texture::LoadImg("img\\pes.png", out),
-		SDL::Texture::LoadImg("img\\lukasek.png", out),
-		SDL::Texture::LoadImg("img\\archer.png", out),
-		SDL::Texture::LoadImg("img\\healer.png", out),
-		SDL::Texture::LoadImg("img\\risa.png", out),
-		SDL::Texture::LoadImg("img\\knight.png", out),
-		SDL::Texture::LoadImg("img\\businessman.png", out),
-		SDL::Texture::LoadImg("img\\cart.png", out),
-		SDL::Texture::LoadImg("img\\zombiearcher.png", out),
-		SDL::Texture::LoadImg("img\\zombiehealer.png", out),
-		SDL::Texture::LoadImg("img\\icezombie.png", out),
-		SDL::Texture::LoadImg("img\\zombie.png", out),
-		SDL::Texture::LoadImg("img\\obr.png", out),
-		SDL::Texture::LoadImg("img\\runner.png", out),
-		SDL::Texture::LoadImg("img\\zombiebird.png", out),
-		SDL::Texture::LoadImg("img\\businesszombie.png", out),
-		SDL::Texture::LoadImg("img\\zombieshoot.png", out)
+		out.LoadImg("img\\robik.png"),
+		out.LoadImg("img\\gate.png"),
+		out.LoadImg("img\\shoot.png"),
+		out.LoadImg("img\\horse.png"),
+		out.LoadImg("img\\child.png"),
+		out.LoadImg("img\\archer.png"),
+		out.LoadImg("img\\healer.png"),
+		out.LoadImg("img\\cat.png"),
+		out.LoadImg("img\\knight.png"),
+		out.LoadImg("img\\businessman.png"),
+		out.LoadImg("img\\cart.png"),
+		out.LoadImg("img\\zombiearcher.png"),
+		out.LoadImg("img\\zombiehealer.png"),
+		out.LoadImg("img\\icezombie.png"),
+		out.LoadImg("img\\zombie.png"),
+		out.LoadImg("img\\obr.png"),
+		out.LoadImg("img\\runner.png"),
+		out.LoadImg("img\\zombiebird.png"),
+		out.LoadImg("img\\businesszombie.png"),
+		out.LoadImg("img\\zombieshoot.png")
 	};
 	constexpr uint32 zombie_start=Fighter::lenght-Fighter::size.x;
 	FighterList fighters={
 		make_unique<SwordFighter>(images[3], 0, 10, true, 100, 10, 1, 0, false),//Pes
-		make_unique<Decelerator>(images[4], 0, 2, true, 100, 20, SpeedState(SpeedState::Enum::Sleeping, 5), false),
-		make_unique<Archer>(images[5], 0, 1, true, 100, 10, 150, false, make_unique<Shoot>(images[2], 0, 10, true)),
+		make_unique<Decelerator>(images[4], 0, 2, true, 100, 20, SpeedState(SpeedState::Enum::Slow, 50), false),
+		make_unique<Archer>(images[5], 0, 1, true, 100, 10, 150, false, make_unique<Shoot>(images[2], 0, 5, true)),
 		make_unique<Healer>(images[6], 0, 1, true, 100, 50, 40, 80, false),//Lekar
 		make_unique<SwordFighter>(images[7], 0, 1, true, 200, 50, 4, 50, false),//Risa
 		make_unique<SwordFighter>(images[8], 0, 1, true, 2000, 20, 1, 0, false),//Rytir
@@ -73,18 +77,18 @@ int main()try
 		make_unique<Healer>(images[12], zombie_start, 1, false, 100, 50, 40, 80, false),
 		make_unique<Decelerator>(images[13], zombie_start, 1, false, 150, 20, SpeedState(SpeedState::Enum::Slow, 100), false),
 		make_unique<SwordFighter>(images[14], zombie_start, 2, false, 100, 10, 1, 0, false),
-		make_unique<SwordFighter>(images[15], zombie_start, 1, false, 100, 400, 40, 50, false),
+		make_unique<SwordFighter>(images[15], zombie_start, 1, false, 500, 350, 60, 20, false),
 		make_unique<Runner>(images[16], zombie_start, 15, 100, 100, false),
 		make_unique<SwordFighter>(images[17], zombie_start, 2, false, 50, 10, 1, 0, true),
 		make_unique<Reverser>(images[18], zombie_start, 1, false, 50, 100, 100, false)
 	};
 	Fighter::arena.AddFighter(make_unique<Robik>(images[0], 0, 5, 1000, 20, 1, 0, make_unique<Shoot>(images[2], 0, 10, true), 20, 200, GraphicOutput::arenaPos));
 	Fighter::arena.AddFighter(make_unique<Gate>(images[1], 1000, 0, true));
-	Bank bank(10000, 0);
+	Bank bank(10000);
 	ShopWithSoliders shop(bank, images, fighters, {
 		{0,  500},
 		{1,  500},
-		{2, 1000},
+		{2,  500},
 		{3, 1500},
 		{4, 2000},
 		{5, 3000},
@@ -92,7 +96,7 @@ int main()try
 		{7, 2000}});
 	ZombieCreator zombies(fighters, level, progress.GetLoops());
 	KillingProgress killed(zombies);
-	while(SDL::Event::NotQuit())
+	while(!SDL::events::Quit())
 	{
 		out.Show(killed, bank, shop, Fighter::arena);
 		if(End(Fighter::arena, killed.YouWin()))
@@ -107,7 +111,7 @@ int main()try
 		}
 		uint32 newkilled=Fighter::arena.Clean();
 		killed.IncreaseKilled(newkilled);
-		shop.AddMoney(1+newkilled);
+		shop.AddMoney(1+newkilled*100);
 		if(newkilled!=0)
 		{
 			killedZombieSound.Play();
@@ -124,5 +128,5 @@ catch(SDL::Error& err)
 }
 catch(exception& exc)
 {
-	cout<<exc.what()<<'\n';
+	SDL::MessageBox::Show("Chyba", exc.what());
 }

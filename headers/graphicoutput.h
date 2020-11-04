@@ -20,8 +20,8 @@ public:
 		arena.DrawOn(rend, SDL::Point(0, arenaPos));
 		rend.Show();
 	}
-	operator SDL::Renderer&()
+	SDL::Texture LoadImg(string s)
 	{
-		return rend;
+		return func::Move(rend.LoadImg(s));
 	}
 };

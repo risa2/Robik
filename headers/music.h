@@ -7,14 +7,14 @@ private:
     SDL::AudioDevice music_player;
     struct Data
     {
-    	SDL::Audio::WAVBuffer buf;
+    	vector<uint8> buf;
         uint32 pos;
     };
 public:
 	Music(const string& file):format(48000, SDL::Audio::Format::U8, 1,0)
 	{
-		SDL::Audio::WAVBuffer music_buf;
-		tie(format,music_buf)=format.LoadWAV(file);
+		vector<uint8> music_buf;
+		tie(format, music_buf)=format.LoadWAV(file);
 		format.SetUserdata(new Data{func::Move(music_buf), 0});
 		format.SetCallback([](void* userdata, uint8* stream, int len){
 			Data* data=(Data*)userdata;

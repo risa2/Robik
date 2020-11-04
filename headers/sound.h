@@ -5,7 +5,7 @@ class Sound: public NonCopyable
 private:
 	struct Data
 	{
-		SDL::Audio::WAVBuffer buf;
+		vector<uint8> buf;
 		uint32 pos;
 		bool play;
 	};
@@ -41,13 +41,13 @@ private:
 			memset(stream, 0, len);
 		}
 	}
-	SDL::Audio format;
+	SDL:: Audio format;
 	SDL::AudioDevice player;
 public:
 	Sound(const string& file):format(48000, SDL::Audio::Format::U8, 1,0)
 	{
-		SDL::Audio::WAVBuffer buf;
-		tie(format,buf)=format.LoadWAV(file);
+		vector<uint8> buf;
+		tie(format, buf)=format.LoadWAV(file);
 		format.SetUserdata(new Data{func::Move(buf), 0, false});
 		format.SetCallback(Callback);
 		player.Open(format);
@@ -55,8 +55,9 @@ public:
 	}
 	void Play()
 	{
-		format.GetUserdata<Data>()->play=true;
-		format.GetUserdata<Data>()->pos=0;
+		auto data=new Data{func::Move(format.GetUserdata<Data>()->buf), 0, false};
+		delete format.GetUserdata<Data>();
+		format.SetUserdata(data);
 	}
 	~Sound()
 	{

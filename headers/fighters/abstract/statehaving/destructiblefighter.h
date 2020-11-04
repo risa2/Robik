@@ -33,7 +33,7 @@ public:
 	}
 	void DrawOn(SDL::Renderer& rend, SDL::Point dst_pos)
 	{
-		rend.Draw(SDL::Rect(dst_pos.x, flying?dst_pos.y+Fighter::size.y-1:dst_pos.y, Fighter::size.x*health/maxhealth, 1), SDL::Color::Green());
-		rend.Draw(SDL::Rect(dst_pos.x+Fighter::size.x*health/maxhealth, flying?dst_pos.y+Fighter::size.y-1:dst_pos.y, Fighter::size.x-Fighter::size.x*health/maxhealth, 1), SDL::Color::Red());
+		rend.Draw(SDL::Rect(dst_pos.x, flying?dst_pos.y+Fighter::size.y-1:dst_pos.y, Fighter::size.x*health/maxhealth, 1), SDL::Color(0,255,0));
+		rend.Draw(SDL::Rect(dst_pos.x+Fighter::size.x*health/maxhealth, flying?dst_pos.y+Fighter::size.y-1:dst_pos.y, Fighter::size.x-Fighter::size.x*health/maxhealth, 1), SDL::Color(255,0,0));
 	}
 };

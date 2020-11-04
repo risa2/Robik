@@ -18,9 +18,9 @@ public:
     }
     void DrawOn(SDL::Renderer& rend, SDL::Rect dst)
     {
-    	rend.Draw(SDL::Rect(dst.Position(), dst.w*killed/zombies, dst.h), SDL::Color::Cyan());
-    	rend.Draw(SDL::Rect(dst.Position()+SDL::Point(dst.w*killed/zombies, 0), dst.w-dst.w*killed/zombies, dst.h), SDL::Color::Black());
+    	rend.Draw(SDL::Rect(dst.Position(), dst.w*killed/zombies, dst.h), SDL::Color(0,255,255));
+    	rend.Draw(SDL::Rect(dst.Position()+SDL::Point(dst.w*killed/zombies, 0), dst.w-dst.w*killed/zombies, dst.h), SDL::Color(0,0,0));
 		auto progresstext=to_string(killed*100/zombies)+"%";
-		rend.Draw(font, progresstext, SDL::Color::White(), SDL::Point((rend.GetOutputSize().x-font.TextSize(progresstext).x)/2, 0));
+		rend.Draw(font, progresstext, SDL::Color(255,255,255), SDL::Point((rend.Size().x-font.TextSize(progresstext).x)/2, 0));
     }
 };

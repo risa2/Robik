@@ -6,9 +6,10 @@ class Robik: public TouchFighter, public Shooter, public Person
 {
 private:
 	const uint32 arenapos;
+	SDL::KeyboardState kb;
 public:
 	Robik(SDL::Texture& img, uint32 pos, uint32 speed, uint32 health, uint32 damage, uint32 interval, uint32 range, unique_ptr<Shoot> shoot, uint32 shootinterval, uint32 shootrange, uint32 arenapos)
-		:TouchFighter(damage, interval, range), Shooter(shootinterval, shootrange, func::Move(shoot)), Person(img, pos, speed, true, health, false), arenapos(arenapos){}
+		:TouchFighter(damage, interval, range), Shooter(shootinterval, shootrange, func::Move(shoot)), Person(img, pos, speed, true, health, false), arenapos(arenapos), kb(){}
 	virtual void BeReversed(Fighter&)override{}
 	virtual void Action()override
 	{
@@ -16,9 +17,9 @@ public:
 		{
 			++health;
 		}
-		if((SDL::Cursor::PressedButtons()&SDL::MouseButtonMask::Left)!=SDL::MouseButtonMask::None&&func::Ordered<uint32,uint32,uint32>(arenapos, SDL::Cursor::Position().y, arenapos+size.y))
+		if(kb.IsPressed(SDL::Scancode::Left)||kb.IsPressed(SDL::Scancode::Right))
 		{
-			if(uint32(SDL::Cursor::Position().x)>pos+size.x/2)
+			if(kb.IsPressed(SDL::Scancode::Right))
 			{
 				GoRight();
 			}

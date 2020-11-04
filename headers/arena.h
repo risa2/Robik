@@ -11,7 +11,7 @@ private:
 	Array fighters;
 	bool active=true;
 public:
-	Arena()=default;
+	Arena():fighters(){}
 	void AddFighter(unique_ptr<Fighter> fighter)
 	{
 		fighters.push_back(func::Move(fighter));

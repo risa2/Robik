@@ -12,7 +12,6 @@ public:
 	}
 	virtual void DrawOn(SDL::Renderer& rend, SDL::Point dst_pos)override
     {
-    	SDL::Rect dst(dst_pos, Fighter::size);
-    	rend.Draw(img, nullptr, &dst, 0, IsReversed()?SDL::Renderer::Flip::Horizontal:SDL::Renderer::Flip::None);
+    	rend.Draw(img, img.Size(), SDL::Rect(dst_pos, Fighter::size), 0, IsReversed()?SDL::Renderer::Flip::Horizontal:SDL::Renderer::Flip::None);
     }
 };
