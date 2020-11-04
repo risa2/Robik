@@ -1,8 +1,0 @@
-﻿ 8	Lukostřelec	rychlost  1 životy 100 interval  20	síla střely 10 	dosah 150
- 9	Lékař		rychlost  1 životy 100 interval  40	síla 50  	dosah 80
-10	Zpomalovač	rychlost  1 životy 150 			trvání 100	dosah 20
-11	Válečník	rychlost  2 životy 100 interval   1 	útok 10		dosah 0
-12	Válečník	rychlost  1 životy 100 interval  40	útok 400	dosah 50
-13	Ničtel brány	rychlost 15 životy 100 			útok 100
-14	Válečník	rychlost  2 životy  50 interval   1 	útok 10		dosah 0	létá
-15	Obraceč		rychlost  1 životy  50 interval 100			dosah 100
